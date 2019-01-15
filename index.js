@@ -3,7 +3,7 @@ const app = express()
 const mailer = require('express-mailer')
 const router = express.Router()
 
-const port = process.env.PORT || 8000
+const port = process.env.PORT || 3000
 
 app.set('views', __dirname + '/views')
 app.set('view engine', 'pug')
