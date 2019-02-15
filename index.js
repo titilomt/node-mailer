@@ -9,20 +9,28 @@ app.set('views', __dirname + '/views')
 app.set('view engine', 'pug')
 
 mailer.extend(app, {
-  from: 'tiago.fonseca@fourtime.com',
+  from: 'test@no-reply.com',
   host: 'smtp.gmail.com', // hostname
-  secureConnection: true, // use SSL
-  port: 465, // port for secure SMTP
-  transportMethod: 'SMTP', // default is SMTP. Accepts anything that nodemailer accepts
+
+  port: 587, // port for secure SMTP
+
   auth: {
-    user: 'tiago.fonseca@fourtime.com',
-    pass: '@ronaldo99'
+    user: '@',
+    pass: '@'
   }
-});
+})
+
+router.post('/upload', (req, res, next) => {
+
+})
 
 router.get('/', (req, res, next) => {
+  console.log('hi')
+})
+
+router.post('/email', (req, res, next) => {
   app.mailer.send('email', {
-    to: 'thp.fonseca@gmail.com', // REQUIRED. This can be a comma delimited string just like a normal email to field. 
+    to: '@', // REQUIRED. This can be a comma delimited string just like a normal email to field. 
     subject: 'Test Email', // REQUIRED.
     otherProperty: 'Other Property' // All additional properties are also passed to the template as local variables.
   }, (err) => {
@@ -33,11 +41,13 @@ router.get('/', (req, res, next) => {
       return;
     }
     res.send('Email Sent');
-  });
-});
+  })
+})
 
-app.use("/", router);
+app.use("/", router)
+app.use('/email', router)
+app.use('/upload', router)
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}!`)
-});
+})
